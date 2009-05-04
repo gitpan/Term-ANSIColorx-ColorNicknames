@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Term-ANSIColorx-ColorNicknames
-version:            2.7182
+version:            2.71828
 abstract:           ~
 author:  []
 license:            LGPL
@@ -11,7 +11,7 @@ build_requires:
     ExtUtils::MakeMaker:  0
 requires:
     perl:             5.006001
-    Term::ANSIColor:  0
+    Term::ANSIColor:  2
 resources:
     repository:  http://github.com/jettero/term--ansicolorx
 no_index:
