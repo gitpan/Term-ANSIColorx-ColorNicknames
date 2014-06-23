@@ -1,0 +1,66 @@
+#!/usr/bin/perl
+
+use strict;
+use Getopt::Long;
+use Pod::Usage;
+use App::HI;
+use List::Util;
+use Getopt::Long qw(:config bundling);
+
+my %o; my %ol = (
+    "help|h"             => "this help",
+    "trunc|t=i"          => "truncate the line to this many characters",
+    "nixnics|noex|x"     => "don't use the nicknames from Term::ANSIColorx::Colornicknames",
+    "list|list-colors|l" => "list (many of) the known colors",
+);
+
+$o{trunc} = $ENV{TRUNCATE} if exists $ENV{TRUNCATE};
+$o{nixnics} = $ENV{NO_EXTRA} if exists $ENV{NO_EXTRA};
+
+if( not GetOptions(\%o, keys %ol) or $o{help} ) {
+    my $ml = List::Util::max(map {length} keys %ol);
+    print sprintf('%*s  %s', $ml, $_, $ol{$_}), "\n" for sort keys %ol;
+    exit 0;
+}
+
+
+our $VERSION = '2.7187';
+
+my $app_invocation = $o{list} ? "list_colors" : "fire_filter";
+
+App::HI->$app_invocation(%o);
+
+=head1 NAME
+
+hi - highlight things in a stream of output
+
+=head1 SYNOPSIS
+
+  hi [options] [regex color [regex color [regex color [...]]]]
+      --list-colors --list -l: list the available colors and exit
+      --nixnics --noex -x:     do not use the extended color nicknames
+      --trunc -t:              truncate lines to this width (argument required)
+      --help -h:               this help
+
+=head1 EXAMPLES
+
+  ps auxfw | hi jettero sky root red ^nobody orange
+
+  sudo tail -f /var/log/vsftpd.log | hi CONNECT.* umber OK.UPLOAD.* lime
+
+=head1 REPORTING BUGS
+
+You can report bugs either via rt.cpan.org or via the issue tracking system on
+github.  I'm likely to notice either fairly quickly.
+
+=head1 AUTHOR
+
+Paul Miller C<< <jettero@cpan.org> >>
+
+=head1 COPYRIGHT
+
+Copyright 2014 Paul Miller -- released under the GPL
+
+=head1 SEE ALSO
+
+perl(1), L<Term::ANSIColor>, L<Term::ANSIColorx::AutoFilterFH>, L<Term::ANSIColorx::ColorNicknames>
