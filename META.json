@@ -34,7 +34,8 @@
          "requires" : {
             "Term::ANSIColor" : "4",
             "Term::Size" : "0",
-            "Text::Table" : "0"
+            "Text::Table" : "0",
+            "common::sense" : "0"
          }
       },
       "test" : {
@@ -50,5 +51,5 @@
          "web" : "https://github.com/jettero/term--ansicolorx"
       }
    },
-   "version" : "2.7187"
+   "version" : "2.7188"
 }
